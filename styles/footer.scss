@@ -1,0 +1,12 @@
+@import "./theme.scss";
+
+$footer-height: 5rem;
+
+.footer {
+  background-color: $foreground;
+  color: $background + aa;
+  height: $footer-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

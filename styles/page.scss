@@ -1,0 +1,10 @@
+@import "./footer.scss";
+@import "./topbar.scss";
+
+.page {
+  padding-top: $topbar-height;
+
+  &-container {
+    min-height: calc(100vh - $footer-height);
+  }
+}

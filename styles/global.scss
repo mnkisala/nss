@@ -1,0 +1,49 @@
+@import "./theme";
+
+.rzekowy {
+  color: $rzekowy;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+
+  background-color: $background;
+
+  font-family: $font-primary;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  :hover {
+    color: $link_hovered;
+    cursor: pointer;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  p {
+    display: block;
+    margin: 0.8rem 1em;
+  }
+
+  ul {
+    margin-top: 0;
+    margin-left: 4rem;
+
+    p {
+      margin: unset;
+    }
+  }
+}

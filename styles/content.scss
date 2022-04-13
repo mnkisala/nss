@@ -1,0 +1,15 @@
+@import "./theme.scss";
+@import "./media.scss";
+
+.content {
+  box-shadow: $shadow-strong;
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 90vw;
+
+  @include md {
+    box-shadow: none;
+    margin: none;
+    max-width: unset;
+  }
+}

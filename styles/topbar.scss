@@ -1,0 +1,17 @@
+@import "./theme.scss";
+
+$topbar-height: 6rem;
+
+.topbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  background-color: $background;
+  box-shadow: $shadow-regular;
+  align-items: stretch;
+
+  max-height: $topbar-height;
+
+  position: fixed;
+  z-index: 1000;
+}
