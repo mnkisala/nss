@@ -1,100 +1,73 @@
-import Content from "../components/Content";
+import Section from "../components/Section";
 import HTML from "../components/HTML";
 import Head from "next/head";
 
-import { STRAPI_URL } from "../staraszkola.cfg";
+import Galeria from "../components/Galeria";
 
-import axios from "axios";
+import { getStrapiContent, getStrapiText } from "../api_utils";
 
-import style from "./index.module.scss";
+import React from "react";
 
-import Gallery from "react-grid-gallery";
-
-export default function Home({ onas, oferta, galerie }) {
+export default function Home({ onas, oferta, galerie, cennik }) {
   return (
     <>
       <Head>
         <title>Noclegi Stara Szkoła nad Biebrzą</title>
       </Head>
 
-      <div id="onas" className="nav-point" />
-      <Content>
-        <HTML content={onas} className={style.onas} />
-      </Content>
+      <>
+        <Section id="onas">
+          <div className="padding">
+            <HTML content={onas} />
+          </div>
+        </Section>
 
-      <div id="oferta" className="nav-point" />
-      <Content>
-        <HTML content={oferta} className={style.oferta} />
-      </Content>
+        <Section padded id="oferta">
+          <HTML content={oferta} />
+        </Section>
 
-      <div id="galeria" className="nav-point" />
-      <Content>
-        {galerie.map((g, i) => (
-          <Galeria key={i} tytul={g.tytul} zdjecia={g.zdjecia} />
-        ))}
-      </Content>
+        <Section padded id="galeria">
+          {galerie.map((g, i) => (
+            <Galeria key={i} tytul={g.tytul} zdjecia={g.zdjecia} />
+          ))}
+        </Section>
+
+        <Section padded id="cennik">
+          <Cennik data={cennik} />
+        </Section>
+      </>
     </>
   );
 }
 
-function Galeria({ tytul, zdjecia }) {
-  return (
-    <div className="galeria">
-      <h1>{tytul}</h1>
-      <Gallery images={zdjecia} />
-    </div>
-  );
-}
-
 export async function getServerSideProps() {
-  const onas = (await axios.get(`${STRAPI_URL}/api/o-nas`)).data.data.attributes
-    .opis;
-  const oferta = (await axios.get(`${STRAPI_URL}/api/oferta`)).data.data
-    .attributes.Tekst;
-  const galerie = await fetchujGalerie();
+  const cennik = await getStrapiContent("cennik");
 
   return {
     props: {
-      onas,
-      oferta,
-      galerie,
+      onas: await getStrapiText("o-nas"),
+      oferta: await getStrapiText("oferta"),
+      cennik,
+      galerie: [], // TODO
     },
   };
 }
 
-async function fetchujGalerie() {
-  const galerie = (
-    await axios.get(`${STRAPI_URL}/api/galerias?populate=zdjecia`)
-  ).data.data;
-
-  return galerie.map((galeria) => {
-    const tytul = galeria.attributes.tytul;
-    const zdjecia = galeria.attributes.zdjecia.data.map((z) => {
-      const src = STRAPI_URL + z.attributes.url;
-      const SCALE = 720;
-      const [width, height] = [z.attributes.width, z.attributes.height];
-      const ratio = width / height;
-
-      return {
-        src,
-        thumbnail: src,
-        thumbnailWidth: SCALE * ratio,
-        thumbnailHeight: SCALE,
-      };
-    });
-
-    /*
-  const zdj = zdjecia.map((z) => ({
-    src: z.attributes.url,
-    thumbnail: STRAPI_URL + z.attributes.url,
-    thumbnailWidth: 100,
-    thumbnailHeight: 100,
-  }));
-  */
-
-    return {
-      tytul,
-      zdjecia,
-    };
-  });
+function Cennik({ data }) {
+  return (
+    <div className="cennik">
+      <div className="cennik-tabela">
+        {data.map((entry, i) => (
+          <React.Fragment key={i}>
+            <div className="cennik-komorka cennik-komorka-dark">
+              {entry.attributes.nazwa}
+            </div>
+            <div className="cennik-komorka cennik-komorka-light">
+              {entry.attributes.cena}
+            </div>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  );
 }

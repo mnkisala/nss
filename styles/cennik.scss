@@ -1,0 +1,38 @@
+@import "./media.scss";
+@import "./theme.scss";
+
+.cennik {
+  &-tabela {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    margin: auto;
+
+    @include sm {
+      width: 100%;
+    }
+
+    margin-bottom: 1rem;
+  }
+
+  &-komorka {
+    text-align: center;
+    margin: 0.1rem;
+    padding: 0.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &-light {
+      background-color: $background;
+      color: $primary;
+      border: 2px solid $primary;
+    }
+
+    &-dark {
+      background-color: $primary;
+      color: $background;
+    }
+  }
+}
