@@ -4,8 +4,7 @@ import axios from "axios";
 export async function getStrapiText(key) {
     return await getStrapiContent(key)
         .then((data) => data.attributes.tekst)
-        // .catch((_) => `<em>${key}</em>`);
-        .catch((e) => `${e}`);
+        .catch((e) => `${key}: ${e}`);
 }
 
 export async function getStrapiContent(key) {

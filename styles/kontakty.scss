@@ -1,0 +1,16 @@
+.kontakty {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  &-tekst {
+    flex: 1 0 50vh;
+    padding: 2rem;
+  }
+
+  &-mapa {
+    flex: 1 0 50vh;
+    min-height: 30rem;
+    border: 0;
+  }
+}

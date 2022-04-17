@@ -22,7 +22,7 @@ a {
   text-decoration: none;
   color: inherit;
 
-  :hover {
+  &:hover {
     color: $link_hovered;
     cursor: pointer;
   }
@@ -46,4 +46,25 @@ body {
       margin: unset;
     }
   }
+}
+
+/* WARNING: this is a terrible hack */
+.header,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-secondary;
+  text-align: center;
+  color: $primary;
+  font-weight: 400;
+  padding: 0.5em;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
