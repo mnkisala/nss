@@ -1,0 +1,30 @@
+@import "./theme.scss";
+
+.onas {
+  display: flex;
+  flex-wrap: wrap;
+
+  &-tekst {
+    flex: 1 0 500px;
+
+    padding: 2rem;
+  }
+
+  &-galeria {
+    flex: 1 0 400px;
+
+    display: block;
+    position: relative;
+
+    height: 28rem;
+
+    overflow: hidden;
+
+    background-color: $foreground;
+    color: $background;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,13 +1,15 @@
-import Section from "../components/Section";
-import HTML from "../components/HTML";
-import Galeria from "../components/Galeria";
-import Mapa from "../components/Mapa";
-
+import React from "react";
 import Head from "next/head";
 
 import { getStrapiContent, getStrapiText } from "../api_utils";
 
-import React from "react";
+import Section from "../components/Section";
+import HTML from "../components/HTML";
+import Galeria from "../components/Galeria";
+import Mapa from "../components/Mapa";
+import Cenniki from "../components/Cenniki";
+import ONasGaleria from "../components/ONasGaleria";
+import { STRAPI_URL } from "../staraszkola.cfg";
 
 export default function Home({
   nazwaStrony,
@@ -16,6 +18,7 @@ export default function Home({
   galerie,
   cenniki,
   kontakt,
+  onasZdjecia,
 }) {
   return (
     <>
@@ -25,8 +28,13 @@ export default function Home({
 
       <>
         <Section id="onas">
-          <div className="padding">
-            <HTML content={onas} />
+          <div className="onas">
+            <div className="onas-tekst">
+              <HTML content={onas} />
+            </div>
+            <div className="onas-galeria">
+              <ONasGaleria zdjecia={onasZdjecia} />
+            </div>
           </div>
         </Section>
 
@@ -65,34 +73,21 @@ export async function getServerSideProps() {
       oferta: await getStrapiText("oferta"),
       kontakt: await getStrapiText("kontakt"),
       cenniki: await getStrapiContent("cennik?populate=ceny"),
+      onasZdjecia: await getONasZdjecia(),
       galerie: [], // TODO
     },
   };
 }
 
-function Cenniki({ data }) {
-  return (
-    <>
-      {data.map((cennik, i) => {
-        return (
-          <div key={i} className="cennik">
-            <h1 className="header">{cennik.attributes.nazwa}</h1>
+async function getONasZdjecia() {
+  const content = await getStrapiContent("o-nas-galeria?populate=zdjecia");
 
-            <div className="cennik-tabela">
-              {cennik.attributes.ceny.map((entry, i) => (
-                <React.Fragment key={i}>
-                  <div className="cennik-komorka cennik-komorka-dark">
-                    {entry.produkt}
-                  </div>
-                  <div className="cennik-komorka cennik-komorka-light">
-                    {entry.cena}
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        );
-      })}
-    </>
-  );
+  const zdjecia = content.attributes.zdjecia.data.map((zdj) => {
+    return {
+      original: `${STRAPI_URL}/${zdj.attributes.url}`,
+      thumbnail: `${STRAPI_URL}/${zdj.attributes.formats.thumbnail.url}`,
+    };
+  });
+
+  return zdjecia;
 }

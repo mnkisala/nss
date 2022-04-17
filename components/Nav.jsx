@@ -11,10 +11,12 @@ const elements = [
     name: "Galeria",
     to: "#galeria",
   },
+  /*
   {
     name: "Okolica",
     to: "#okolica",
   },
+  */
   {
     name: "Cennik",
     to: "#cennik",
