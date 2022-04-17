@@ -9,11 +9,18 @@ import { getStrapiContent, getStrapiText } from "../api_utils";
 
 import React from "react";
 
-export default function Home({ onas, oferta, galerie, cennik, kontakt }) {
+export default function Home({
+  nazwaStrony,
+  onas,
+  oferta,
+  galerie,
+  cenniki,
+  kontakt,
+}) {
   return (
     <>
       <Head>
-        <title>Noclegi Stara Szkoła nad Biebrzą</title>
+        <title>{nazwaStrony}</title>
       </Head>
 
       <>
@@ -34,7 +41,7 @@ export default function Home({ onas, oferta, galerie, cennik, kontakt }) {
         </Section>
 
         <Section padded id="cennik">
-          <Cenniki data={cennik} />
+          <Cenniki data={cenniki} />
         </Section>
 
         <Section id="kontakt">
@@ -51,14 +58,13 @@ export default function Home({ onas, oferta, galerie, cennik, kontakt }) {
 }
 
 export async function getServerSideProps() {
-  const cennik = await getStrapiContent("cennik?populate=ceny");
-
   return {
     props: {
+      nazwaStrony: await getStrapiText("nazwa-strony"),
       onas: await getStrapiText("o-nas"),
       oferta: await getStrapiText("oferta"),
       kontakt: await getStrapiText("kontakt"),
-      cennik,
+      cenniki: await getStrapiContent("cennik?populate=ceny"),
       galerie: [], // TODO
     },
   };
