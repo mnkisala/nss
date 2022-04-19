@@ -6,8 +6,7 @@ export default function Logo() {
       <div className="logo-header-container">
         <div className="logo-header-container-text-logo">Stara Szkoła</div>
         <div className="logo-header-container-description">
-          {" "}
-          noclegi nad Biebrzą{" "}
+          noclegi nad Biebrzą
         </div>
       </div>
       {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -1,3 +1,5 @@
+@import "./theme.scss";
+
 .galeria {
   flex: 0 1 100px;
 
@@ -19,6 +21,8 @@
     object-fit: cover;
 
     transition: all 0.2s linear;
+
+    background-color: #ccc;
 
     img {
       width: 100%;
