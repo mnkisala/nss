@@ -83,8 +83,8 @@ async function getONasZdjecia() {
 
   const zdjecia = content.attributes.zdjecia.data.map((zdj) => {
     return {
-      original: `${STRAPI_URL}/${zdj.attributes.url}`,
-      thumbnail: `${STRAPI_URL}/${zdj.attributes.formats.thumbnail.url}`,
+      original: `https:/staraszkola-biebrza.eu/strapi/${zdj.attributes.url}`,
+      thumbnail: `https:/staraszkola-biebrza.eu/strapi/${zdj.attributes.formats.thumbnail.url}`,
     };
   });
 
