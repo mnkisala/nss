@@ -26,13 +26,13 @@ export async function getStrapiContent(key) {
 export async function fetchujGalerie() {
     try {
         const galerie = (
-            await axios.get(`${STRAPI_URL}/api/galerias?populate=zdjecia`)
+            await axios.get(`${STRAPI_URL}/api/galerie?populate=zdjecia`)
         ).data.data;
 
         return galerie.map((galeria) => {
-            const tytul = galeria.attributes.tytul;
+            const nazwa = galeria.attributes.nazwa;
             const zdjecia = galeria.attributes.zdjecia.data.map((z) => {
-                const src = STRAPI_URL + z.attributes.url;
+                const src = "http://staraszkola-biebrza.eu/strapi" + z.attributes.url;
                 const SCALE = 720;
                 const [width, height] = [z.attributes.width, z.attributes.height];
                 const ratio = width / height;
@@ -40,17 +40,18 @@ export async function fetchujGalerie() {
                 return {
                     src,
                     thumbnail: src,
-                    thumbnailWidth: SCALE * ratio,
-                    thumbnailHeight: SCALE,
+                    thumbnailWidth: width,
+                    thumbnailHeight: height,
                 };
             });
 
             return {
-                tytul,
+                nazwa,
                 zdjecia,
             };
         });
-    } catch {
+    } catch (e) {
+        console.log(e)
         return [];
     }
 }

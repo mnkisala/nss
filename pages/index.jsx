@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-import { getStrapiContent, getStrapiText } from "../api_utils";
+import { fetchujGalerie, getStrapiContent, getStrapiText } from "../api_utils";
 
 import Section from "../components/Section";
 import HTML from "../components/HTML";
@@ -10,6 +10,7 @@ import Mapa from "../components/Mapa";
 import Cenniki from "../components/Cenniki";
 import ONasGaleria from "../components/ONasGaleria";
 import { STRAPI_URL } from "../staraszkola.cfg";
+import { Galerie } from "../components/Galeria";
 
 export default function Home({
   nazwaStrony,
@@ -43,9 +44,7 @@ export default function Home({
         </Section>
 
         <Section padded id="galeria">
-          {galerie.map((g, i) => (
-            <Galeria key={i} tytul={g.tytul} zdjecia={g.zdjecia} />
-          ))}
+          <Galerie galerie={galerie} />
         </Section>
 
         <Section padded id="cennik">
@@ -74,7 +73,7 @@ export async function getServerSideProps() {
       kontakt: await getStrapiText("kontakt"),
       cenniki: await getStrapiContent("cennik?populate=ceny"),
       onasZdjecia: await getONasZdjecia(),
-      galerie: [], // TODO
+      galerie: await fetchujGalerie(),
     },
   };
 }

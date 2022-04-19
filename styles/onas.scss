@@ -3,16 +3,16 @@
 .onas {
   display: flex;
   flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
 
   &-tekst {
-    flex: 1 0 500px;
+    flex: 1 1 100px;
 
     padding: 2rem;
   }
 
   &-galeria {
-    flex: 1 0 400px;
-
     display: block;
     position: relative;
 
