@@ -9,16 +9,7 @@ export default function Cenniki({ data }) {
             <h1 className="header">{cennik.attributes.nazwa}</h1>
 
             <div className="cennik-tabela">
-              {cennik.attributes.ceny.map((entry, i) => (
-                <React.Fragment key={i}>
-                  <div className="cennik-komorka cennik-komorka-dark">
-                    {entry.produkt}
-                  </div>
-                  <div className="cennik-komorka cennik-komorka-light">
-                    {entry.cena}
-                  </div>
-                </React.Fragment>
-              ))}
+              Cennik dostępny na <a hfef="https://www.booking.com/hotel/pl/noclegi-nad-biebrza-stara-szkola.pl.html"> booking.com </a>
             </div>
           </div>
         );
