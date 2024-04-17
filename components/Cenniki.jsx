@@ -7,7 +7,7 @@ export default function Cenniki({ data }) {
         return (
           <div key={i} className="cennik">
             <h1 className="header">{cennik.attributes.nazwa}</h1>
-            Cennik dostępny na <a hfef="https://www.booking.com/hotel/pl/noclegi-nad-biebrza-stara-szkola.pl.html"> booking.com </a>
+            <div style="display: flex; justify-content: center; align-items: center">Cennik dostępny na <a href="https://www.booking.com/hotel/pl/noclegi-nad-biebrza-stara-szkola.pl.html"> booking.com </a></div>
           </div>
         );
       })}
